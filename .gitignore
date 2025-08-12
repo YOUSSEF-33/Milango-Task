@@ -38,4 +38,5 @@ yarn-error.*
 
 app-example
 .env.env
+# Ignore the .env file for security reasons
 .env
