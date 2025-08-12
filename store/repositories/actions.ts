@@ -39,7 +39,12 @@ export const fetchRepositoriesByLanguageAndDate = (
       const query = `${languageQuery}created:>${date}`;
 
       const response = await fetch(
-        `https://api.github.com/search/repositories?q=${query}&sort=stars&order=desc&per_page=${limit}`
+        `https://api.github.com/search/repositories?q=${query}&sort=stars&order=desc&per_page=${limit}`,
+        {
+          headers: {
+            Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          },
+        }
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
