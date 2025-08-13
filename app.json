@@ -17,7 +17,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.youssef88atef.milangotask"
+      "package": "com.youssef55atef.milangotask"
     },
     "web": {
       "bundler": "metro",
@@ -42,14 +42,11 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "7721513a-bcff-49f7-b29b-95c903033ed3"
+        "projectId": "dc7f7c3d-aded-4374-a125-f5ec93bf52c8"
       }
     },
     "runtimeVersion": {
       "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/7721513a-bcff-49f7-b29b-95c903033ed3"
     }
   }
 }

@@ -49,7 +49,7 @@ const RepositoriesScreen: React.FC = () => {
   const [showLanguageModal, setShowLanguageModal] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [languageSearch, setLanguageSearch] = useState<string>('');
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [currentDate, setCurrentDate] = useState<Date>(new Date('2025-09-01'));
 
 
 
@@ -73,7 +73,7 @@ const RepositoriesScreen: React.FC = () => {
 
     const dateStr = formatDateYYYYMMDD(event.nativeEvent.timestamp);
     setShowDatePicker(false);
-    console.log(dateStr)
+    //console.log(dateStr)
     if (selectedDate) {
       setCurrentDate(selectedDate);
       dispatch(setSelectedDate(dateStr));
@@ -218,6 +218,7 @@ const RepositoriesScreen: React.FC = () => {
             mode="date"
             display="default"
             onChange={handleDateChange}
+            maximumDate={new Date(new Date().setDate(new Date().getDate() - 1))}
           />
         </View>
       )}

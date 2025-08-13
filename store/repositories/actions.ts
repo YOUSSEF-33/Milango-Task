@@ -27,6 +27,8 @@ export const setSelectedDate = (date: string) => ({
 
 
 
+const githubToken = process.env.EXPO_PUBLIC_GITHUB_TOKEN;
+
 export const fetchRepositoriesByLanguageAndDate = (
   limit: number = 10,
   lang: string = "Any",
@@ -35,17 +37,20 @@ export const fetchRepositoriesByLanguageAndDate = (
   return async (dispatch: Dispatch<RepositoriesAction>) => {
     try {
       dispatch({ type: FETCH_REPOS_REQUEST });
-      const languageQuery = lang && lang !== 'Any' ? `language:${lang}+` : '';
+      // Encode the language to handle special characters
+      const encodedLang = encodeURIComponent(lang);
+      const languageQuery = lang && lang !== 'Any' ? `language:${encodedLang}+` : '';
       const query = `${languageQuery}created:>${date}`;
 
       const response = await fetch(
         `https://api.github.com/search/repositories?q=${query}&sort=stars&order=desc&per_page=${limit}`,
         {
           headers: {
-            Authorization: `token ${process.env.GITHUB_TOKEN}`,
+            Authorization: `token ${githubToken}`,
           },
         }
       );
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -53,7 +58,13 @@ export const fetchRepositoriesByLanguageAndDate = (
       const items: RepoCardRepository[] = data.items;
       dispatch({ type: FETCH_REPOS_SUCCESS, payload: items });
     } catch (e: any) {
-      dispatch({ type: FETCH_REPOS_FAILURE, payload: e?.message ?? 'Unknown error' });
+      let message = e?.message ?? "Unknown error";
+
+      if (e instanceof TypeError) {
+        message = "Please check your internet connection.";
+      }
+
+      dispatch({ type: FETCH_REPOS_FAILURE, payload: message });
     }
   };
 };

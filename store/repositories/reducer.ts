@@ -19,7 +19,7 @@ const initialState: RepositoriesState = {
   error: null,
   selectedView: 'Top 10',
   selectedLanguage: 'Any',
-  selectedDate: formatDateYYYYMMDD(Date.now()), // Initialize with current date as a string
+  selectedDate: '2022-01-01', // Initialize with a specific date as a string
 };
 
 export const repositoriesReducer = (
